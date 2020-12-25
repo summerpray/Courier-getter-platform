@@ -1,0 +1,36 @@
+{
+    "pages":[
+        "pages/index/main",
+        "pages/orders/main",
+        "pages/me/main",
+        "pages/opinion/main",
+        "pages/createorder/main",
+        "pages/detail/main"
+    ],
+    "window": {
+        "navigationBarBackgroundColor": "#EA5149",
+        "navigationBarTitleText": "机器人快递代取平台"
+    },
+    "tabBar": {
+      "color": "#202020",
+      "selectedColor": "#ec5045",
+      "list": [{
+        "pagePath": "pages/index/main",
+        "text": "首页",
+        "iconPath": "static/tabs/home.png",
+        "selectedIconPath": "static/tabs/home-active.png"
+      },
+      {
+        "pagePath": "pages/orders/main",
+        "text": "订单",
+        "iconPath": "static/tabs/orders.png",
+        "selectedIconPath": "static/tabs/orders-active.png"
+      },
+      {
+        "pagePath": "pages/me/main",
+        "text": "我的",
+        "iconPath": "static/tabs/me.png",
+        "selectedIconPath": "static/tabs/me-active.png"
+      }]
+    }
+}
