@@ -67,9 +67,13 @@
       </div>
       <div v-if="order.condition ==='进行中'">
         <button @click="showChange()">已完成</button>
+        <button @click="showCancel()">取消订单</button>
       </div>
-      <div v-else="order.condition ==='已完成'">
+      <div v-else-if="order.condition ==='已完成'">
         <label class="row">此订单已完成</label>
+      </div>
+      <div v-else-if="order.condition ==='可接单'">
+        <label class="row">暂时还没人接单呢</label>
       </div>
       </div>
     </div>
@@ -89,8 +93,10 @@ export default {
   },
   onPullDownRefresh () {
     this.order = wx.getStorageSync('order')
-    console.log('order', this.order)
-    console.log('下拉刷新')
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading'
+    })
     wx.stopPullDownRefresh()
   },
   methods: {
@@ -102,7 +108,7 @@ export default {
         success (res) {
           if (res.confirm) {
             console.log('用户点击确定')
-            that.updateordersuc()
+            that.updateorderchange('已完成')
             wx.navigateTo({
               url: '/pages/detail/main'
             })
@@ -112,10 +118,25 @@ export default {
         }
       })
     },
-    async updateordersuc() {
+    showCancel() {
+      var that = this
+      wx.showModal({
+        title: '提示',
+        content: '请确认是否取消订单',
+        success (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            that.updateorderchange('可接单')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    },
+    async updateorderchange(condition) {
       try {
         console.log('orderid', wx.getStorageSync('order').orderid)
-        const res = await post('/weapp/updateordersuc', {condition: '已完成', orderid: wx.getStorageSync('order').orderid, openId: wx.getStorageSync('order').recopenid})
+        const res = await post('/weapp/updateordersuc', {condition: condition, orderid: wx.getStorageSync('order').orderid, openId: wx.getStorageSync('order').recopenid})
         console.log('从后端返回的执行正确的信息是：', res)
         wx.removeStorageSync('order')
         wx.navigateBack({

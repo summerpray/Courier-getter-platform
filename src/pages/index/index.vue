@@ -66,6 +66,10 @@ export default {
   },
   onPullDownRefresh () {
     this.getOKOrder()
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading'
+    })
     wx.stopPullDownRefresh()
   },
   onShareAppMessage(e) {

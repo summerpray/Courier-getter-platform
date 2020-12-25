@@ -24,7 +24,7 @@
         <img class="img" :src="item">
       </label>
       <label v-if="imgcount<2" @click="uploadPicture">
-        <img class="add-img" src="../../../static/images/addimages.png">
+        <img class="add-img" src="../../../static/images/addimage.png">
       </label>
     </div>
     <div class="row">

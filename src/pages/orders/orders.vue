@@ -4,9 +4,20 @@
       <div class="mark-text">历史订单</div>
         <div class="mark">{{historyorders.length}}</div>
       </div>
-      <div class="row">
+      <div v-if="historyorders.length === 0">
+          <div class="roworder" @click="showCreate()">
+            <label class="left">
+              <img class="img" src="/static/images/noorder.png">
+            </label>
+            <label class="name">&nbsp;&nbsp;没有订单了呢！快去发布吧</label>
+            <label class="right">
+              >
+            </label>
+          </div>
+      </div>
+      <div v-else-if="historyorders.length > 0">
         <div v-for="(item, index, value) in historyorders" :key="index">
-            <div class="row" @click="showDetail(index)">
+              <div class="row" @click="showDetail(index)">
                 <label class="left">
                   <img class="img" src="/static/images/order.png">
                 </label>
@@ -24,8 +35,8 @@
                     订单状态：{{historyorders[index].condition}}
                   </div>
                 </div>
-            </div>
-        </div>
+              </div>
+          </div>
       </div>
   </div>
 </template>
@@ -49,7 +60,20 @@ export default {
     }
     this.getOrder()
   },
+  onPullDownRefresh () {
+    this.getOrder()
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading'
+    })
+    wx.stopPullDownRefresh()
+  },
   methods: {
+    showCreate() {
+      wx.navigateTo({
+        url: '/pages/createorder/main'
+      })
+    },
     async getOrder() {
       try {
         const res = await get('/weapp/getorder', {openid: this.userInfo.openId})
@@ -96,6 +120,45 @@ div{
   .mark{
     font-size: 88px;
   }
+}
+.img-large{
+  float:left;
+  width: 120px;
+  height: 100px;
+  padding-top:30px;
+  padding-left: 30px;
+  .nonetext{
+  padding-top: 60px;
+  }
+}
+.right {
+    float: right;
+    color: #C8C8C8;
+    line-height:55px;
+  }
+  .left {
+    width:80%;
+  }
+.roworder{
+  padding: 0px 18px;
+  border-bottom: 1px #E8E8E8 solid;
+  height: 55px;
+  line-height: 55px;
+  .img {
+      float:left;
+      width: 50px;
+      height: 50px;
+    }
+    .container{
+      width: 300px;
+      height: auto;
+      padding-left: 50px;
+      font-size: 10px;
+      .little-content {
+        padding-top: 8px;
+        color:#606060;
+      }
+    }
 }
 .row{
     padding: 0px 18px;
