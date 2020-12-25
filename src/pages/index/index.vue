@@ -40,6 +40,7 @@
 <script>
 import LoginWindow from '@/components/LoginWindow'
 import {get, post, showModel} from '@/util'
+import {formatTime} from '../../utils/index'
 export default {
   components: {
     LoginWindow
@@ -57,6 +58,7 @@ export default {
   onShow() {
     const userinfo = wx.getStorageSync('userinfo')
     this.getOKOrder()
+    this.order.create_time = formatTime(new Date(this.order.create_time))
     if (userinfo.openId) {
       this.userInfo = userinfo
     } else {
@@ -85,7 +87,7 @@ export default {
         const res = await get('/weapp/getOKorder', {condition: this.condition})
         console.log('从后端返回的执行正确的信息是：', res)
         this.order = res.Order
-        console.log('order', this.order)
+        console.log('create_time',this.order.create_time)
       } catch (e) {
         showModel('失败', '页面加载失败，请下拉页面重试哦~')
         console.log('从后端返回的执行错误的信息是：', e)
