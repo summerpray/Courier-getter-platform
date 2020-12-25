@@ -16,7 +16,7 @@
               3、交易需满足中华人民共和国法律
             </p>
             <p class="little-content">
-              4、最终解释权属于summerpray和FaultyChow所有。
+              4、本平台最终解释权属于summerpray。
             </p>
           </div>
         </div>

@@ -19,6 +19,8 @@ module.exports = {
   ],
   // add your custom rules here
   'rules': {
+    'no-tabs': 0,
+    'no-mixed-spaces-and-tabs': 0,
     'no-irregular-whitespace': 'off',
     // allow paren-less arrow functions
     'arrow-parens': 0,
