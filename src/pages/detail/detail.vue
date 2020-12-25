@@ -1,8 +1,7 @@
 <template>
   <div>
-    <keep-alive>
     <p class="content">详情</p>
-    <div class="container">
+    <div class="container" >
       <div class="row">
         <label class="left">
           <img class="img" src="/static/images/people.png">
@@ -66,9 +65,6 @@
           >
         </label>
       </div>
-      <button @click="showvalue()">
-        如果数据未刷新请点击这里
-      </button>
       <div v-if="order.condition ==='进行中'">
         <button @click="showChange()">已完成</button>
       </div>
@@ -77,7 +73,6 @@
       </div>
       </div>
     </div>
-    </keep-alive>
   </div>
 </template>
 
@@ -87,10 +82,10 @@ export default {
   onShow: function(option) {
     const eventChannel = this.$mp.page.getOpenerEventChannel()
     eventChannel.on('acceptDataFromOpenerPage', function(data) {
-      const orderdetail = data.data
-      this.order = orderdetail
-      wx.setStorageSync('order', this.order)
+      const orderdetail = JSON.parse(data.data)
+      wx.setStorageSync('order', orderdetail)
     })
+    this.order = wx.getStorageSync('order')
   },
   onPullDownRefresh () {
     this.order = wx.getStorageSync('order')
@@ -98,14 +93,7 @@ export default {
     console.log('下拉刷新')
     wx.stopPullDownRefresh()
   },
-  activated() {
-    this.order = wx.getStorageSync('order')
-  },
   methods: {
-    showvalue() {
-      console.log('order', this.order)
-      this.order = wx.getStorageSync('order')
-    },
     showChange() {
       var that = this
       wx.showModal({
@@ -142,6 +130,7 @@ export default {
   data() {
     return {
       order: {},
+      receiver: {},
       src: '../../static/images/littleTip-huang.jpg'
     }
   }

@@ -63,7 +63,7 @@ export default {
     },
     showDetail(index) {
       this.tmp = this.historyorders[index]
-      let arr = this.tmp
+      let arr = JSON.stringify(this.tmp)
       console.log('arr', arr)
       wx.navigateTo({
         url: '/pages/detail/main',
