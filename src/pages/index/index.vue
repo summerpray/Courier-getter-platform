@@ -98,10 +98,10 @@ export default {
         console.log('从后端返回的执行错误的信息是：', e)
       }
     },
-    async updateorder() {
+    async updateorder(condition) {
       try {
         console.log('orderid', this.order[this.indexid].orderid)
-        const res = await post('/weapp/updatacondition', {condition: '进行中', orderid: this.order[this.indexid].orderid, openId: this.userInfo.openId})
+        const res = await post('/weapp/updatacondition', {condition: condition, orderid: this.order[this.indexid].orderid, openId: this.userInfo.openId})
         console.log('从后端返回的执行正确的信息是：', res)
         this.order = res
         console.log('order', this.order)
@@ -116,21 +116,22 @@ export default {
       console.log('this.showLogin', this.showLogin)
     },
     showChange: function(index) {
+      this.indexid = index
+      console.log('indexid', this.indexid)
       var that = this
-      this.order[index].condition = '进行中'
       this.tmp = this.order[index]
-      let arr = this.tmp
-      console.log('arr', arr)
       wx.showModal({
         title: '提示',
         content: '请确认是否接取订单',
         success (res) {
           if (res.confirm) {
             console.log('用户点击确定')
-            that.updateorder()
+            const condition = '进行中'
+            that.updateorder(condition)
             wx.navigateTo({
               url: '/pages/detail/main',
               success: function(res) {
+                let arr = JSON.stringify(that.tmp)
                 res.eventChannel.emit('acceptDataFromOpenerPage', { data: arr })
               }
             })

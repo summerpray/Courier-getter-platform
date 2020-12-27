@@ -16,7 +16,7 @@
               3、交易需满足中华人民共和国法律
             </p>
             <p class="little-content">
-              4、本平台最终解释权属于summerpray。
+              4、本平台最终解释权属于summerpray和FaulttChow所有。
             </p>
           </div>
         </div>
@@ -65,8 +65,8 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  background: rgb(158, 103, 103);
-  opacity: 0.8;
+  background: rgb(146, 144, 144);
+  opacity: 1;
   overflow: hidden;
   z-index: 9000;
   color: #fff;
