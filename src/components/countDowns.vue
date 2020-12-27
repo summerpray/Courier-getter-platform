@@ -1,13 +1,11 @@
-//子组件定义
 <template>
     <div class="countDown" @click="countDown" :style="{color:getCountDate.color}">{{ countDownText }}</div>
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   props: {
-    countDate: {},
+    countDate: {}
   },
   data() {
     return {
@@ -15,44 +13,43 @@ export default {
       countDownText: '获取验证码',
       getCountDate: this.countDate,
       countDownFlag: true,
-      phone:'123123'
-    };
+      phone: '123123'
+    }
   },
   methods: {
     countDown() {
       if (this.countDownOff) {
-        return;
+        return {}
       }
       if (this.countDate.count === null) {
-        this.getDateSecond(60);
+        this.getDateSecond(60)
       } else {
-        this.getDateSecond(this.countDate.count);
+        this.getDateSecond(this.countDate.count)
       }
     },
     getDateSecond(wait) {
-      let _this = this;
-      let _wait = wait;
-      if (wait == 0) {  
-        this.countDownOff = false;
-        this.countDownText = '获取验证码';
-        wait = _wait;
+      let _this = this
+      let _wait = wait
+      if (wait === 0) {
+        this.countDownOff = false
+        this.countDownText = '获取验证码'
+        wait = _wait
       } else {
-        //this.getAxios()
-        this.countDownOff = true;
-        this.countDownText = '(' + wait + 's)';
-        wait--;
+        this.countDownOff = true
+        this.countDownText = '(' + wait + 's)'
+        wait--
         setTimeout(function () {
-          _this.getDateSecond(wait);
-        }, 1000);
+          _this.getDateSecond(wait)
+        }, 1000)
       }
     }
   }
-};
+}
 </script>
 
 <style scoped lang="scss">
 .countDown {
   cursor: pointer;
-  color: rgb(27, 25, 25);
+  color: rgb(27, 25, 25)
 }
 </style>

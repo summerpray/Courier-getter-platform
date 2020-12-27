@@ -136,44 +136,22 @@ div{
     color: #C8C8C8;
     line-height:55px;
   }
-  .left {
-    width:80%;
-  }
-.roworder{
-  padding: 0px 18px;
-  border-bottom: 1px #E8E8E8 solid;
-  height: 55px;
-  line-height: 55px;
-  .img {
-      float:left;
-      width: 50px;
-      height: 50px;
-    }
-    .container{
-      width: 300px;
-      height: auto;
-      padding-left: 50px;
-      font-size: 10px;
-      .little-content {
-        padding-top: 8px;
-        color:#606060;
-      }
-    }
-}
+
 .row{
     padding: 0px 18px;
     border-bottom: 3px #E8E8E8 solid;
     height: 110px;
     .img {
       float:left;
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       padding-top:30px;
+      padding-left: 20px ;
     }
     .container{
       width: 300px;
       height: auto;
-      padding-left: 50px;
+      padding-left: 100px;
       font-size: 10px;
       .little-content {
         padding-top: 8px;

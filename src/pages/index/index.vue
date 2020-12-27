@@ -23,7 +23,7 @@
                 </label>
                 <div class= "container">
                   <div class="little-content">
-                    发布日期：{{order[index].create_time}}
+                    目的地：{{order[index].destination}}
                   </div>
                   <div class="little-content">
                     物品简介：{{order[index].tip}}
@@ -41,9 +41,11 @@
 import LoginWindow from '@/components/LoginWindow'
 import {get, post, showModel} from '@/util'
 import {formatTime} from '../../utils/index'
+import countDown from '@/components/countDowns'
 export default {
   components: {
-    LoginWindow
+    LoginWindow,
+    countDown
   },
   data() {
     return {
@@ -78,7 +80,11 @@ export default {
     return {
       title: '机器人代取平台',
       path: '/pages/index/main',
-      imageUrl: '/static/images/2.jpg'
+      imageUrl: '/static/images/2.jpg',
+      countDowns: {
+        cout: '100',
+        color: 'white'
+      }
     }
   },
   methods: {

@@ -74,14 +74,25 @@
           >
         </label>
       </div>
+      <div class="row">
+        <label class="left">
+          <img class="img" src="/static/images/tips.png">
+        </label>
+        <label class="name">&nbsp;&nbsp;订单截图:</label>
+        <label class="right">
+          >
+        </label>
+      </div>
       <div v-if="order.condition ==='进行中'">
         <button @click="showChange()">已完成</button>
         <button @click="showCancel()">取消订单</button>
       </div>
       <div v-else-if="order.condition ==='已完成'">
+        <button @click="showdelete()">删除订单</button>
         <label class="row">此订单已完成</label>
       </div>
       <div v-else-if="order.condition ==='可接单'">
+        <button @click="showdelete()">删除订单</button>
         <label class="row">暂时还没人接单呢</label>
       </div>
       </div>
@@ -130,6 +141,24 @@ export default {
         }
       })
     },
+    showdelete() {
+      var that = this
+      wx.showModal({
+        title: '提示',
+        content: '请确认是否删除此订单',
+        success (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            that.deleteorder()
+            wx.navigateBack({
+              delta: 2
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    },
     showCancel() {
       var that = this
       wx.showModal({
@@ -149,6 +178,21 @@ export default {
       try {
         console.log('orderid', wx.getStorageSync('order').orderid)
         const res = await post('/weapp/updateordersuc', {condition: condition, orderid: wx.getStorageSync('order').orderid, openId: wx.getStorageSync('order').recopenid})
+        console.log('从后端返回的执行正确的信息是：', res)
+        wx.removeStorageSync('order')
+        wx.removeStorageSync('createtime')
+        wx.navigateBack({
+          delta: 3
+        })
+      } catch (e) {
+        showModel('失败', '页面加载失败，请下拉页面重试哦~')
+        console.log('从后端返回的执行错误的信息是：', e)
+      }
+    },
+    async deleteorder() {
+      try {
+        console.log('orderid', wx.getStorageSync('order').orderid)
+        const res = await post('/weapp/deleteone', {orderid: wx.getStorageSync('order').orderid})
         console.log('从后端返回的执行正确的信息是：', res)
         wx.removeStorageSync('order')
         wx.removeStorageSync('createtime')
