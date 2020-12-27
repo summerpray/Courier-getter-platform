@@ -60,6 +60,15 @@
         <label class="left">
           <img class="img" src="/static/images/tips.png">
         </label>
+        <label class="name">&nbsp;&nbsp;订单创建时间:{{createtime}}</label>
+        <label class="right">
+          >
+        </label>
+      </div>
+      <div class="row">
+        <label class="left">
+          <img class="img" src="/static/images/tips.png">
+        </label>
         <label class="name">&nbsp;&nbsp;订单状态:{{order.condition}}</label>
         <label class="right">
           >
@@ -82,14 +91,17 @@
 
 <script>
 import {post, showModel} from '@/util'
+import {formatTime} from '../../utils/index'
 export default {
   onShow: function(option) {
     const eventChannel = this.$mp.page.getOpenerEventChannel()
     eventChannel.on('acceptDataFromOpenerPage', function(data) {
       const orderdetail = JSON.parse(data.data)
       wx.setStorageSync('order', orderdetail)
+      wx.setStorageSync('createtime', formatTime(new Date(orderdetail.create_time)))
     })
     this.order = wx.getStorageSync('order')
+    this.createtime = wx.getStorageSync('createtime')
   },
   onPullDownRefresh () {
     this.order = wx.getStorageSync('order')
@@ -139,6 +151,7 @@ export default {
         const res = await post('/weapp/updateordersuc', {condition: condition, orderid: wx.getStorageSync('order').orderid, openId: wx.getStorageSync('order').recopenid})
         console.log('从后端返回的执行正确的信息是：', res)
         wx.removeStorageSync('order')
+        wx.removeStorageSync('createtime')
         wx.navigateBack({
           delta: 3
         })
@@ -150,6 +163,7 @@ export default {
   },
   data() {
     return {
+      createtime: '',
       order: {},
       receiver: {},
       src: '../../static/images/littleTip-huang.jpg'

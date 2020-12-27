@@ -87,7 +87,6 @@ export default {
         const res = await get('/weapp/getOKorder', {condition: this.condition})
         console.log('从后端返回的执行正确的信息是：', res)
         this.order = res.Order
-        console.log('create_time',this.order.create_time)
       } catch (e) {
         showModel('失败', '页面加载失败，请下拉页面重试哦~')
         console.log('从后端返回的执行错误的信息是：', e)

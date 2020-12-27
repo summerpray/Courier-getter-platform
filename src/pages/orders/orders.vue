@@ -23,7 +23,7 @@
                 </label>
                 <div class= "container">
                   <div class="little-content">
-                    创建日期：{{historyorders[index].create_time}}
+                    目的地：{{historyorders[index].destination }}
                   </div>
                   <div class="little-content">
                     物品简介：{{historyorders[index].tip}}
